@@ -21,6 +21,12 @@ A machine learning project that analyzes customer reviews and predicts sentiment
 Flipkart Product Review Dataset
 Approximate Size: 189,874 reviews
 
+The dataset has been compressed as `Flipkart_Product.csv.gz` to reduce repository size.
+To extract:
+```bash
+gunzip Flipkart_Product.csv.gz
+```
+
 ## Models Used
 - Logistic Regression
 - Naive Bayes
