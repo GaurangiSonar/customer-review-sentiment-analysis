@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import joblib
 import re
@@ -8,6 +8,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import nltk
 
+
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,7 @@ CORS(app)
 
 # Ensure NLTK resources are available for cleaning
 nltk.download(['punkt', 'stopwords', 'wordnet'], quiet=True)
+nltk.download('punkt_tab', quiet=True)
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 stop_words.difference_update({'not', 'no', 'never'})
@@ -44,6 +46,9 @@ def clean_text(text):
     return ' '.join([lemmatizer.lemmatize(w) for w in tokens if w not in stop_words])
 
 # --- 3. PREDICTION ROUTE ---
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
