@@ -126,6 +126,11 @@ The web application provides:
 * Accuracy, Precision, Recall, and F1-Score metrics
 * Model performance insights
 
+<img width="2187" height="1244" alt="image" src="https://github.com/user-attachments/assets/d8782ea6-69df-4d33-b0c1-68a1237ed351" />
+<img width="2043" height="1159" alt="image" src="https://github.com/user-attachments/assets/210746bc-4d14-4228-8c45-e9ec342f56ca" />
+<img width="1066" height="415" alt="image" src="https://github.com/user-attachments/assets/f38acf11-a9c1-4e1b-bd43-40b009cf0801" />
+
+
 ---
 
 ## How to Run
