@@ -1,183 +1,290 @@
-# Customer Review Sentiment Analysis
+# Review Sentiment Analyzer
 
-## Overview
+![Python](https://img.shields.io/badge/Python-ML%20Project-3776AB?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Backend-000000?logo=flask&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-NLP%20Models-F7931E?logo=scikitlearn&logoColor=white)
+![NLTK](https://img.shields.io/badge/NLTK-Text%20Processing-154F5B)
+![Chart.js](https://img.shields.io/badge/Chart.js-Visualization-FF6384?logo=chartdotjs&logoColor=white)
 
-Customer Review Sentiment Analysis is a Machine Learning and Natural Language Processing (NLP) project that analyzes customer reviews and classifies them as **Positive**, **Neutral**, or **Negative**. The application compares the performance of **Logistic Regression** and **Naive Bayes** models through an interactive web interface built using Flask.
-
-The project demonstrates the complete machine learning workflow, from data preprocessing and feature engineering to model training, evaluation, visualization, and deployment.
-
----
-
-## Features
-
-* Sentiment classification of customer reviews
-* Comparison between Logistic Regression and Naive Bayes models
-* Confidence score visualization for predictions
-* Text preprocessing using NLP techniques
-* Interactive confusion matrix visualization
-* Model performance comparison
-* Real-time sentiment prediction through a Flask web application
-* Modern and responsive user interface
+Review Sentiment Analyzer is a Flask-based machine learning application that performs sentiment analysis on customer product reviews and compares predictions from Logistic Regression and Multinomial Naive Bayes.
 
 ---
 
-## Technologies Used
+## Project Overview
 
-### Programming & Data Science
+Review Sentiment Analyzer is an end-to-end inference application for product review sentiment classification. It is designed to demonstrate a practical ML serving workflow: a user submits a review, the backend preprocesses the text, the review is vectorized using the correct feature representation for each model, and both classifiers return sentiment predictions with confidence scores.
 
-* Python
-* NumPy
-* Pandas
 
-### Machine Learning & NLP
 
-* Scikit-learn
-* NLTK
-* TF-IDF Vectorization
-* Bag-of-Words (BoW)
+### This project demonstrates:
 
-### Web Development
-
-* Flask
-* HTML
-* CSS
-* JavaScript
-
-### Visualization
-
-* Chart.js
-* Matplotlib
+- production-oriented ML inference with Flask
+- consistent preprocessing between training and inference
+- model packaging and artifact loading with joblib
+- dual-model comparison for better interpretability
+- REST API design for frontend-backend integration
+- dashboard-style visualization of model behavior
+- a maintainable Flask project structure using templates/ and static/
 
 ---
 
-## Dataset
+## Key Features
 
-The project uses a Flipkart Product Reviews dataset containing customer reviews and sentiment labels.
-
-Due to GitHub file size limitations, the dataset has been compressed and uploaded as:
-
-`Flipkart_Product.csv.gz`
-
----
-
-## Machine Learning Workflow
-
-1. Data Collection
-2. Data Cleaning & Preprocessing
-3. Tokenization and Lemmatization
-4. Stop-word Removal
-5. Feature Extraction using TF-IDF and Bag-of-Words
-6. Model Training
-7. Model Evaluation
-8. Web Application Development
+| Feature | Description |
+|---|---|
+| Customer review sentiment classification | Predicts sentiment for input review text |
+| Dual-model comparison | Compares Logistic Regression and Naive Bayes outputs side by side |
+| Confidence score reporting | Returns model probability scores for the predicted class |
+| Shared preprocessing pipeline | Keeps training and inference transformations aligned |
+| Evaluation dashboard | Displays accuracy, precision, recall, F1, and confusion matrices |
+| Frontend + backend integration | Browser UI communicates with Flask REST endpoints |
+| Saved model artifacts | Uses pre-trained .pkl files for inference |
+| Example inputs | Includes positive and negative example reviews for quick testing |
 
 ---
 
-## Models Used
+## System Architecture
 
-### Logistic Regression
 
-* TF-IDF feature representation
-* Probabilistic linear classification model
+flowchart LR
+    U[User] --> UI[Web UI<br/>HTML / CSS / JavaScript]
+    UI --> API[Flask Backend]
 
-### Naive Bayes
+    API --> PRE[Text Preprocessing]
+    PRE --> V1[TF-IDF Vectorizer]
+    PRE --> V2[Bag-of-Words Vectorizer]
 
-* Bag-of-Words feature representation
-* Fast probabilistic text classification model
+    V1 --> LR[Logistic Regression Model]
+    V2 --> NB[Naive Bayes Model]
+
+    LR --> OUT[Prediction + Confidence]
+    NB --> OUT
+
+    OUT --> UI
+    API --> METRICS[Evaluation Metrics]
+    METRICS --> UI
+
 
 ---
 
-## Project Structure
+## Machine Learning Pipeline
 
-```text
-customer-review-sentiment-analysis/
-│
+
+flowchart TD
+    A[Flipkart Review Dataset] --> B[Text Cleaning]
+    B --> C[Emoji Conversion]
+    C --> D[Lowercasing]
+    D --> E[Remove Non-Alphabetic Characters]
+    E --> F[Tokenization]
+    F --> G[Stopword Removal]
+    G --> H[Negation Preservation]
+    H --> I[Lemmatization]
+    I --> J[Feature Extraction]
+
+    J --> K1[TF-IDF Features]
+    J --> K2[Bag-of-Words Features]
+
+    K1 --> L1[Logistic Regression]
+    K2 --> L2[Naive Bayes]
+
+    L1 --> M[Sentiment Prediction]
+    L2 --> M
+
+    M --> N[Confidence Scores]
+    N --> O[Frontend Dashboard]
+
+
+---
+
+## Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Backend | Python, Flask, Flask-CORS |
+| ML / NLP | scikit-learn, NLTK, emoji, joblib |
+| Frontend | HTML, CSS, JavaScript, Chart.js |
+| Data | CSV dataset, saved model artifacts |
+| Visualization | Chart.js bar charts, confusion matrix table |
+
+---
+
+## Repository Structure
+
+
+Review-Sentiment-Analyzer/
 ├── app.py
-├── FMiniProject.ipynb
-├── README.md
 ├── requirements.txt
-│
-├── templates/
-│   └── index.html
-│
-├── static/
-│   ├── style.css
-│   └── script.js
-│
+├── README.md
+├── .gitignore
+├── FMiniProject.ipynb
+├── Flipkart_Product.csv
 ├── model_lr.pkl
 ├── model_nb.pkl
 ├── tfidf.pkl
 ├── bow.pkl
 ├── classes.pkl
-├── cm_lr.pkl
-├── cm_nb.pkl
-│
-└── Flipkart_Product.csv.gz
-```
+├── templates/
+│   └── index.html
+└── static/
+    ├── style.css
+    └── script.js
 
-## Application Outputs
 
-The web application provides:
-
-* Sentiment prediction using Logistic Regression
-* Sentiment prediction using Naive Bayes
-* Confidence score comparison
-* Confusion matrix visualization
-* Accuracy, Precision, Recall, and F1-Score metrics
-* Model performance insights
-
-<img width="1284" height="1217" alt="image" src="https://github.com/user-attachments/assets/2111f145-1472-4a0b-99c7-f5112352cad8" />
-<img width="922" height="1184" alt="image" src="https://github.com/user-attachments/assets/2fb76b24-e9f0-4720-ba9d-19db893e1c1b" />
-<img width="1088" height="388" alt="image" src="https://github.com/user-attachments/assets/29bd9bcc-026e-4043-b528-43cc50872666" />
+### Structure notes
+- templates/ contains the Flask HTML template.
+- static/ contains the CSS and JavaScript assets.
+- The notebook is included to document the training and experimentation workflow.
 
 ---
 
-## How to Run
+## Model Comparison Approach
 
-### Install Dependencies
+The application intentionally uses two classical text classification models to compare behavior on the same input.
 
-```bash
-pip install flask flask-cors pandas numpy scikit-learn nltk emoji joblib matplotlib
-```
+| Model | Vectorizer | Why it fits |
+|---|---|---|
+| Logistic Regression | TF-IDF | Strong baseline for sparse text features and linear decision boundaries |
+| Naive Bayes | Bag-of-Words | Fast probabilistic baseline that performs well on text classification tasks |
 
-### Run the Application
 
-```bash
+### Why the project uses two vectorizers
+
+Each model is paired with the representation it was trained on:
+
+- Logistic Regression uses TF-IDF
+- Naive Bayes uses Bag-of-Words
+
+This avoids feature mismatch and keeps inference behavior consistent with training.
+
+---
+
+## How It Works
+
+1. The user submits a product review.
+2. The backend preprocesses the text:
+   - emoji conversion
+   - lowercasing
+   - non-alphabetic character removal
+   - tokenization
+   - stopword removal
+   - negation preservation
+   - lemmatization
+3. The cleaned text is vectorized:
+   - TF-IDF for Logistic Regression
+   - Bag-of-Words for Naive Bayes
+4. Both models generate predictions.
+5. Confidence scores are returned.
+6. Evaluation metrics are displayed in the UI.
+
+---
+
+## Machine Learning Pipeline Design
+
+| Stage | Implementation Detail |
+|---|---|
+| Input normalization | Review text is cleaned before inference |
+| Emoji handling | Emojis are converted into text tokens |
+| Negation handling | Words such as not, no, and never are preserved |
+| Feature extraction | TF-IDF and Bag-of-Words are used for the two models |
+| Inference | Both models predict independently on the same input |
+| Evaluation | Metrics are computed on a held-out test split |
+
+---
+
+
+
+## Installation & Setup
+
+### Prerequisites
+
+- Python installed locally
+- pip
+- A terminal with access to the project directory
+
+### Install dependencies
+
+
+git clone https://github.com/arshsolkar5/Review-Sentiment-Analyzer.git
+cd Review-Sentiment-Analyzer
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+
+### Notes
+
+- On Windows, activate the environment with:
+
+
+.venv\Scripts\activate
+
+
+
+---
+
+## Running Locally
+
+Start the application with:
+
+
 python app.py
-```
 
-### Open in Browser
 
-```text
+Then open the app in your browser:
+
+
 http://127.0.0.1:5000
-```
+
+
+If the app is starting for the first time, it may take slightly longer because it loads the trained artifacts and builds the evaluation metrics from the dataset.
 
 ---
 
-## Learning Outcomes
 
-Through this project, I gained practical experience in:
+## Screenshots
 
-* Natural Language Processing (NLP)
-* Text preprocessing and feature engineering
-* Machine Learning model development
-* Sentiment classification
-* Model evaluation and comparison
-* Flask-based web application development
-* Data visualization and performance analysis
+
+### Dashboard
+![Dashboard Screenshot](docs/screenshots/s1.png)
+
+### Prediction Results
+![Prediction Screenshot](docs/screenshots/s2.png)
+
+### Performance Visualization
+![Confusion Matrix Screenshot](docs/screenshots/s3.png)
+
+
 
 ---
 
 ## Future Improvements
 
-* Integration of Transformer-based models such as BERT
-* Cloud deployment
-* Multilingual sentiment analysis
-* Review summarization and keyword extraction
-* Enhanced analytics dashboard
+| Area | Planned Improvement |
+|---|---|
+| Modeling | Add transformer-based sentiment classifiers |
+| Packaging | Containerize the application with Docker |
+| Delivery | Add CI/CD for automated testing and deployment |
+| Monitoring | Track inference behavior and data drift |
+| Deployment | Deploy to a cloud platform such as Render, Railway, or Hugging Face Spaces |
+| Security | Add user authentication for managed access |
+| Observability | Add structured logs and model health checks |
+
+---
+
+## Learning Outcomes
+
+This project demonstrates practical experience in:
+
+- building an NLP inference pipeline
+- preparing text data for machine learning
+- using classical ML models for sentiment analysis
+- serving models through a Flask application
+- exposing REST API endpoints for frontend consumption
+- packaging trained artifacts for reuse
+- designing a dashboard that makes ML outputs easier to interpret
 
 ---
 
 ## Author
 
-**Gaurangi Sonar**
+Gaurangi Sonar
